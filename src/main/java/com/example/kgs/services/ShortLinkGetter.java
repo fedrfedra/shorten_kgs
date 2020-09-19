@@ -14,14 +14,11 @@ public class ShortLinkGetter {
     @Autowired
     ShortLinkDAO shortLinkDAO;
 
-    @Autowired
-    ShortLinkRepo shortLinkRepo;
-
 
     @Autowired
     Faker faker;
 
-    public String getShortLink(){
+    public String getShortLink() {
 //        return faker.twinPeaks().character();
         return shortLinkDAO.getShortLink();
 //        return shortLinkRepo.findAll().get(0);

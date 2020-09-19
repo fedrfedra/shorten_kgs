@@ -4,9 +4,11 @@ import com.example.kgs.services.ShortLinkGetter;
 import com.github.javafaker.Faker;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 
+@EnableEurekaClient
 @SpringBootApplication
 public class KgsApplication {
 
@@ -17,9 +19,6 @@ public class KgsApplication {
 
     public static void main(String[] args) {
         ConfigurableApplicationContext context = SpringApplication.run(KgsApplication.class, args);
-        ShortLinkGetter shortLinkGetter = context.getBean(ShortLinkGetter.class);
-        shortLinkGetter.getShortLink();
-
     }
 
 }
