@@ -1,6 +1,5 @@
 package com.example.kgs;
 
-import com.example.kgs.services.ShortLinkGetter;
 import com.github.javafaker.Faker;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

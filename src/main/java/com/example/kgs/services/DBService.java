@@ -9,18 +9,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ShortLinkGetter {
+public class DBService {
 
     @Autowired
     ShortLinkDAO shortLinkDAO;
-
 
     @Autowired
     Faker faker;
 
     public String getShortLink() {
-//        return faker.twinPeaks().character();
         return shortLinkDAO.getShortLink();
-//        return shortLinkRepo.findAll().get(0);
+    }
+
+    public String postShortLink(String shortLink){
+        return shortLinkDAO.postShortLink(shortLink);
     }
 }

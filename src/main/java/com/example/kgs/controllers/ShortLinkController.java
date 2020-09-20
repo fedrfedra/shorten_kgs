@@ -2,12 +2,9 @@ package com.example.kgs.controllers;
 
 
 import com.example.kgs.services.ShortLinkGenerator;
-import com.example.kgs.services.ShortLinkGetter;
+import com.example.kgs.services.DBService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/")
@@ -17,16 +14,20 @@ public class ShortLinkController {
     ShortLinkGenerator generator;
 
     @Autowired
-    ShortLinkGetter shortLinkGetter;
+    DBService dbService;
 
     @GetMapping("get_short_link")
     public String getShortLink() {
-        return shortLinkGetter.getShortLink();
+        return dbService.getShortLink();
     }
 
     @GetMapping("generate")
     public String generate() {
         return generator.generateStrings();
+    }
+    @PostMapping("post_short_link")
+    public String postShortLink(@RequestBody String shortLink) {
+        return dbService.postShortLink(shortLink);
     }
 
 }

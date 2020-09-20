@@ -22,6 +22,7 @@ public class ShortLinkDAO {
     @Autowired
     ShortLinkGenerator generator;
 
+
     @Transactional
     public String getShortLink() {
         Query query = new Query();
@@ -39,6 +40,24 @@ public class ShortLinkDAO {
             return Objects.requireNonNull(mongoTemplate.findAndModify(query, update, ShortLink.class)).getShortLink();
         }
 
+    }
+
+    @Transactional
+    public String postShortLink(String shortLink) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("shortLink").is(shortLink));
+
+        List<ShortLink> shortLinks = mongoTemplate.find(query, ShortLink.class);
+        if (shortLinks.size() == 0) {
+            generator.addSpecificLink(shortLink);
+            return shortLink;
+        } else {
+            //todo generator can fail but it still returns shortlink
+            return shortLinks.get(0).getUsed() ?
+                    getShortLink()
+                    :
+                    shortLink;
+        }
     }
 
 }

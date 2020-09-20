@@ -15,22 +15,27 @@ public class ShortLinkGenerator {
     @Autowired
     ShortLinkRepo repo;
 
-    //todo find end chars somehow
+    //todo find end chars somehow otherwise when restarted problems will occur
     private char[] endChars;
 
     @Transactional
     public String generateStrings() {
         char[] pw = new char[4];
-        for (pw[0] = endChars[0]; pw[0] <= endChars[0] + 3; pw[0]++)
-            for (pw[1] = endChars[1]; pw[1] <= endChars[1] + 3; pw[1]++)
-                for (pw[2] = endChars[2]; pw[2] <= endChars[2] + 3; pw[2]++)
-                    for (pw[3] = endChars[3]; pw[3] <= endChars[3] + 3; pw[3]++) {
+        for (pw[0] = 'A'; pw[0] <= 'C'; pw[0]++)
+            for (pw[1] = 'A'; pw[1] <= 'C'; pw[1]++)
+                for (pw[2] = 'A'; pw[2] <= 'C'; pw[2]++)
+                    for (pw[3] = 'A'; pw[3] <= 'C'; pw[3]++) {
                         endChars = pw;
                         String s = new String(pw);
                         ShortLink shortLink = ShortLink.builder().shortLink(s).used(false).build();
                         repo.save(shortLink);
                     }
         return "generated";
+    }
 
+    @Transactional
+    public void addSpecificLink(String shortLinkString){
+        ShortLink shortLink = ShortLink.builder().shortLink(shortLinkString).used(true).build();
+        repo.save(shortLink);
     }
 }
